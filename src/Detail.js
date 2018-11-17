@@ -58,6 +58,7 @@ export default class ListComponent extends Component{
                                 loading={loading}
                                 style={{padding: '0px 24px 10px 24px '}}
                                 split
+                                locale={{emptyText: '暂无评论'}}
                                 renderItem={item => (
                                 <Link to={`/detail/${item.id}`}>
                                     <List.Item>

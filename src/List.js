@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const RenderTag = ({item}) => {
   return (
-    `${item.reply_count}/${item.visit_count}${item.top ? <Tag>置顶</Tag> : ''}${item.title}`
+    `${item.reply_count}/${item.visit_count} ${item.top ? <Tag>置顶</Tag> : ''}${item.title}`
   )
 }
 export default class ListComponent extends Component{

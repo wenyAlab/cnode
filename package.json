@@ -1,5 +1,5 @@
 {
-  "name": "my-test",
+  "name": "weiwei",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -117,5 +117,17 @@
       "react-app"
     ]
   },
-  "proxy": "https://cnodejs.org/api/v1 "
+  "proxy": "https://cnodejs.org/api/v1 ",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wenyAlab/cnode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wenyAlab/cnode/issues"
+  },
+  "homepage": "https://github.com/wenyAlab/cnode#readme"
 }

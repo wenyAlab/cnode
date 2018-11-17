@@ -32,7 +32,7 @@ export default class ListComponent extends Component{
                     <Card
                     title="作者"
                     >
-                    <Avatar src={detailData.avatar_url} />{detailData.loginname}
+                    <Avatar src={detailData.avatar_url} /> { detailData.loginname}
                     <div>
                         <p>{`积分：${detailData.score}`}</p>
                     </div>
@@ -43,16 +43,14 @@ export default class ListComponent extends Component{
                         dataSource={detailData.recent_topics}
                         loading={loading}
                         split
-                        pagination={{
-                        onChange: (page) => {
-                            console.log(page);
-                        },
-                        }}
                         renderItem={item => (
                         <Link to={`/detail/${item.id}`}>
-                            <List.Item>
+                            <List.Item
+                            style={{overflow: 'hidden', textOverflow:'ellipsis',whiteSpace: 'nowrap'}}
+                            >
                             <List.Item.Meta
                                 title={item.title}
+                                // style={{overflow: 'hidden', textOverflow:'ellipsis',whiteSpace: 'nowrap'}}
                             />
                             </List.Item>
                         </Link>
