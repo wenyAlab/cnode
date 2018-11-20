@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { List, Avatar, Spin, Tag } from 'antd';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 
@@ -33,7 +34,7 @@ export default class ListComponent extends Component{
                     title={<RenderTag item={item}/>}
                     // title={`${item.reply_count}/${item.visit_count}${item.top ? this.renderTag('置顶') : ''}${item.title}`}
                   />
-                  <div>{item.last_reply_at}</div>
+                  <div>{moment(item.last_reply_at).fromNow()}</div>
                 </List.Item>
               </Link>
             )}

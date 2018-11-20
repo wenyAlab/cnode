@@ -32,32 +32,17 @@ class ListComponent extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            detailData: null,
-            loading: true,
         }
     }
     componentDidMount() {
-        const { match: {params} } = this.props;
-        const { id } = params;
-        this.getDetail(id);
     }
     componentWillUnmount() {
-        this.setState({
-            detailData: null,
-        })
     }
     
-    getDetail = (params)=>{
-        fetch(`/topic/${params}?mdrender=false`)
-        .then(res => res.json())
-        .then(res => this.setState({detailData: res.data, loading: false}));
-      }
     render() {
-        const {loading, detailData} = this.state;
         const { form } = this.props;
         const { getFieldDecorator } = form;
         return (
-            !loading ?
             <Layout>
                 <Content style={{ width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>
                     <Row>
@@ -108,7 +93,7 @@ class ListComponent extends Component{
                         </Col>
                     </Row>
 
-                </Content></Layout> : <Spin/>
+                </Content></Layout>
         )
     }
 }

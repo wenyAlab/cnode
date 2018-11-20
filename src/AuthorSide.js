@@ -25,7 +25,6 @@ export default class ListComponent extends Component{
       }
     render() {
         const {loading, detailData} = this.state;
-        console.log(detailData)
         return (
             !loading ?
                 <React.Fragment>
