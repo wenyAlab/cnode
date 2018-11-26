@@ -4,10 +4,23 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 
-const RenderTag = ({item}) => {
-  return (
-    `${item.reply_count}/${item.visit_count} ${item.top ? <Tag>置顶</Tag> : ''}${item.title}`
-  )
+const renderTab = (tab) => {
+  let tabText = '';
+  switch (tab) {
+    case 'share':
+      tabText = '分享';
+      break;
+    case 'ask':
+      tabText = '问答';
+      break;
+    case 'good':
+      tabText = '精华';
+      break;
+    default:
+      tabText = 'cnode';
+      break;
+  }
+  return tabText;
 }
 export default class ListComponent extends Component{
     
@@ -31,8 +44,9 @@ export default class ListComponent extends Component{
                 <List.Item>
                   <List.Item.Meta
                     avatar={<Avatar src={item.author.avatar_url} />}
-                    title={<RenderTag item={item}/>}
-                    // title={`${item.reply_count}/${item.visit_count}${item.top ? this.renderTag('置顶') : ''}${item.title}`}
+                    // title={<RenderTag item={item}/>}
+                    title={<div><i color="#CCC">{item.reply_count}/{item.visit_count} </i>| {item.top ? <Tag color="#87d068"> 置顶</Tag>
+                    : (item.good !== true ? <Tag> {renderTab(item.tab)}</Tag> : <Tag color="#87d068"> 精华</Tag> )}{item.title}</div>}
                   />
                   <div>{moment(item.last_reply_at).fromNow()}</div>
                 </List.Item>

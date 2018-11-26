@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Spin, Tag, List, Avatar, Icon, Row, Col, Card } from 'antd';
 import { Link } from 'react-router-dom';
+import MarkDown from  'react-markdown';
 import AuthorSide from './AuthorSide';
 const fetch = require('node-fetch');
 
@@ -46,9 +47,9 @@ export default class ListComponent extends Component{
                                 浏览次数：<Tag> {detailData.visit_count}</Tag> |
                                 来自：<Tag  > {detailData.tab}</Tag>
                             </div>
-                            <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
-                                {detailData.content}
-                            </div>
+                            {/* <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}> */}
+                                <MarkDown source={detailData.content} />
+                            {/* </div> */}
                             <p style={{ margin: '16px 0', padding: '20px 24px', backgroundColor: '#f4fcf0' }}>
                                 {`${detailData.replies.length} 回复`}
                             </p>
