@@ -82,7 +82,7 @@ export default class ListComponent extends Component{
                         </Col>
                         <Col span={5} offset={1}>
                             <div style={{boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
-                            <AuthorSide author={detailData.author.loginname}/>
+                            <AuthorSide author={detailData.author.loginname} title="作者"/>
                             </div>
                         </Col>
                     </Row>

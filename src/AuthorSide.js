@@ -5,6 +5,12 @@ const fetch = require('node-fetch');
 
 const { Content } = Layout;
 
+const cardStyle = {
+    marginBottom: '20px',
+}
+const cardHeader = {
+    backgroundColor: "#f6f6f6",
+}
 export default class ListComponent extends Component{
     constructor(props) {
         super(props);
@@ -29,32 +35,35 @@ export default class ListComponent extends Component{
             !loading ?
                 <React.Fragment>
                     <Card
-                    title="作者"
+                        title={this.props.title}
+                        style={cardStyle}
+                        headStyle={cardHeader}
                     >
-                    <Avatar src={detailData.avatar_url} /> { detailData.loginname}
-                    <div>
-                        <p>{`积分：${detailData.score}`}</p>
-                    </div>
+                        <Link to={`/user/${detailData.loginname}`}><Avatar src={detailData.avatar_url} /></Link> { detailData.loginname}
+                        <div>
+                            <p>{`积分：${detailData.score}`}</p>
+                        </div>
                     </Card>
-                    <Card title="作者其他话题">
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={detailData.recent_topics}
-                        loading={loading}
-                        split
-                        renderItem={item => (
-                        <Link to={`/detail/${item.id}`}>
-                            <List.Item
-                            style={{overflow: 'hidden', textOverflow:'ellipsis',whiteSpace: 'nowrap'}}
-                            >
-                            <List.Item.Meta
-                                title={item.title}
-                                // style={{overflow: 'hidden', textOverflow:'ellipsis',whiteSpace: 'nowrap'}}
-                            />
-                            </List.Item>
-                        </Link>
-                        )}
-                    />
+                    <Card title="作者其他话题" style={cardStyle} headStyle={cardHeader}>
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={detailData.recent_topics}
+                            loading={loading}
+                            split
+                            renderItem={item => (
+                            <Link to={`/detail/${item.id}`}>
+                                <List.Item
+                                style={{overflow: 'hidden', textOverflow:'ellipsis',whiteSpace: 'nowrap'}}
+                                >
+                                <List.Item.Meta
+                                    title={item.title}
+                                    // style={{overflow: 'hidden', textOverflow:'ellipsis',whiteSpace: 'nowrap'}}
+                                />
+                                </List.Item>
+                            </Link>
+                            )}
+                        />
+                    
                     </Card>
                 </React.Fragment>
             : <Spin/>

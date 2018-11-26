@@ -26,7 +26,7 @@ export default class ListComponent extends Component{
     
 
     render() {
-      const { data, loading} = this.props;
+      const { data, loading, pagination} = this.props;
         return (
           !loading ?
             <List
@@ -34,18 +34,14 @@ export default class ListComponent extends Component{
             dataSource={data}
             loading={loading}
             split
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-            }}
+            pagination={pagination}
             renderItem={item => (
               <Link to={`/detail/${item.id}`}>
                 <List.Item>
                   <List.Item.Meta
                     avatar={<Avatar src={item.author.avatar_url} />}
                     // title={<RenderTag item={item}/>}
-                    title={<div><i color="#CCC">{item.reply_count}/{item.visit_count} </i>| {item.top ? <Tag color="#87d068"> 置顶</Tag>
+                    title={<div><i color="#CCC">{item.reply_count ? item.reply_count : '0'}/{item.visit_count ? item.visit_count : '99'} </i>| {item.top ? <Tag color="#87d068"> 置顶</Tag>
                     : (item.good !== true ? <Tag> {renderTab(item.tab)}</Tag> : <Tag color="#87d068"> 精华</Tag> )}{item.title}</div>}
                   />
                   <div>{moment(item.last_reply_at).fromNow()}</div>

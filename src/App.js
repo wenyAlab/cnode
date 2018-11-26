@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Row, Col, Card, Button, Tag, Input } from 'antd';
 import { Link } from 'react-router-dom';
-import  ListComponent  from './List'
+import  ListComponent  from './components/List'
 import './App.css';
 import Ad from './images/ad.jpg';
 const fetch = require('node-fetch');
 const { Header, Content, Footer } = Layout;
 const Search = Input.Search;
+
+const cardHeader = {
+  backgroundColor: "#f6f6f6",
+}
 class App extends Component {
   constructor(props) {
     super(props);
@@ -81,13 +85,14 @@ class App extends Component {
         <Row>
           <Col span={18}>
             <div style={{ background: '#fff', padding: 24, boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
-              <ListComponent loading={loading} data={userData && userData}/>
+              <ListComponent loading={loading} data={userData && userData} pagination/>
             </div>
           </Col>
           <Col span={5} offset={1}>
             <div style={{boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
             <Card
               title="CNode：Node.js专业中文社区"
+              headStyle={cardHeader}
             >
               <p>您可以 <Tag><Link to="/login">登录</Link></Tag>或 <Tag>注册</Tag> , 也可以</p>
               <Button type="primary">通过gitHub登录</Button>
