@@ -1,4 +1,5 @@
-import { QUERY_ALL, QUERY_DETAIL, CLEAR_DETAIL, CLEAR_LIST} from '../actions/actions';
+import { QUERY_ALL, QUERY_DETAIL, CLEAR_DETAIL,
+    CLEAR_LIST, LOGIN_SUC, LOG_OUT} from '../actions/actions';
 const initState = {
     list: [],
     authLogin: false,
@@ -32,6 +33,16 @@ function myReducer(state = initState, action) {
                 ...state,
                 list: [],
                 tabLoading: true,
+            };    
+        case LOGIN_SUC:
+            return {
+                ...state,
+                authLogin: true,
+            };    
+        case LOG_OUT:
+            return {
+                ...state,
+                authLogin: false,
             };    
         default:
             return state;

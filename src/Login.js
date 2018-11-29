@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Layout, Button, Input, Form, Icon, Row, Col, Card } from 'antd';
+import { userLogin } from './actions/actions'
 const fetch = require('node-fetch');
 
 const { Content } = Layout;
@@ -38,25 +40,35 @@ class Login extends Component{
     }
     componentWillUnmount() {
     }
-    onRedirect = (success) => {
-        if (success) {
-            this.props.history.push('/')
-        } else {
-            alert('fail login')
-        }
-    }
+    // onRedirect = (success) => {
+    //     if (success) {
+    //         this.props.history.push('/')
+    //     } else {
+    //         alert('fail login')
+    //     }
+    // }
     submit = () => {
-        const accesstoken = '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7';
-        fetch(`/accesstoken`, {
-            method: 'post',
-            body: JSON.stringify({accesstoken: accesstoken}),
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then(res => res.json())
-        .then(res => this.onRedirect(res.success));
+        // if (success) {
+        //     this.props.history.push('/')
+        // } else {
+        //     alert('fail login')
+        // }
+        // const accesstoken = '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7';
+        // fetch(`/accesstoken`, {
+        //     method: 'post',
+        //     body: JSON.stringify({accesstoken: accesstoken}),
+        //     headers: { 'Content-Type': 'application/json' },
+        // })
+        // .then(res => res.json())
+        // .then(res => this.onRedirect(res.success));
+        this.props.loginSuc();
+        // if (this.props.authLogin) {
+        //     this.props.history.push('/')
+        // } else {
+        //     alert('fail login')
+        // }
     }
     render() {
-        console.log(this.props)
         const { form } = this.props;
         const { getFieldDecorator } = form;
         return (
@@ -114,4 +126,15 @@ class Login extends Component{
     }
 }
 
-export default Form.create()(Login)
+const mapStateToProps = (state) => ({
+    login: state.authLogin,
+    // authLogin: state.authLogin,
+})
+const mapDispatchToProps = dispatch => ({
+    loginSuc() {
+        dispatch(userLogin());
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create({})(Login))
+// export default Form.create()(Login)

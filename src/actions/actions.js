@@ -1,9 +1,11 @@
-const fetch = require('node-fetch');
 
+const fetch = require('node-fetch');
 export const QUERY_ALL = 'QUERY_ALL';
 export const QUERY_DETAIL = 'QUERY_DETAIL';
 export const CLEAR_DETAIL = 'CLEAR_DETAIL';
 export const CLEAR_LIST = 'CLEAR_LIST';
+export const LOGIN_SUC = 'LOGIN_SUC';
+export const LOG_OUT = 'LOG_OUT';
 
 // 获取首页列表
 export const queryAll =  (payload) => {
@@ -48,5 +50,35 @@ export const clearList = () => {
     return {
         type: CLEAR_LIST,
         payload: [],
+    }
+}
+// 设置用户登录成功
+export const userLoginSuc = (payload, history) => {
+    if (payload.success) {
+        // history.push('/')
+        console.log(history)
+    }
+    return {
+        type: LOGIN_SUC,
+        // payload: [],
+    }
+}
+export function userLogin () {
+    return (dispatch, history) => {
+        const accesstoken = '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7';
+        fetch(`/accesstoken`, {
+            method: 'post',
+            body: JSON.stringify({accesstoken: accesstoken}),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then(res => res.json())
+        .then(res => dispatch(userLoginSuc(res, history)));
+    }
+}
+// 设置用户登出
+export const userLogoutSuc = () => {
+    return {
+        type: LOG_OUT,
+        // payload: [],
     }
 }
