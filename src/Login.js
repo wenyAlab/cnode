@@ -62,6 +62,7 @@ class Login extends Component{
         // .then(res => res.json())
         // .then(res => this.onRedirect(res.success));
         this.props.loginSuc();
+        this.props.history.push('/')
         // if (this.props.authLogin) {
         //     this.props.history.push('/')
         // } else {
@@ -128,7 +129,7 @@ class Login extends Component{
 
 const mapStateToProps = (state) => ({
     login: state.authLogin,
-    // authLogin: state.authLogin,
+    authLogin: state.authLogin,
 })
 const mapDispatchToProps = dispatch => ({
     loginSuc() {

@@ -3,6 +3,7 @@ import { QUERY_ALL, QUERY_DETAIL, CLEAR_DETAIL,
 const initState = {
     list: [],
     authLogin: false,
+    userData: {},
     tabLoading: true,
     detailLoading: true,
     detail: {},
@@ -38,6 +39,7 @@ function myReducer(state = initState, action) {
             return {
                 ...state,
                 authLogin: true,
+                userData: action.payload,
             };    
         case LOG_OUT:
             return {

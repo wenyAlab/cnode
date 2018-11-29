@@ -53,18 +53,14 @@ export const clearList = () => {
     }
 }
 // 设置用户登录成功
-export const userLoginSuc = (payload, history) => {
-    if (payload.success) {
-        // history.push('/')
-        console.log(history)
-    }
+export const userLoginSuc = (payload) => {
     return {
         type: LOGIN_SUC,
-        // payload: [],
+        payload,
     }
 }
 export function userLogin () {
-    return (dispatch, history) => {
+    return (dispatch) => {
         const accesstoken = '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7';
         fetch(`/accesstoken`, {
             method: 'post',
@@ -72,7 +68,7 @@ export function userLogin () {
             headers: { 'Content-Type': 'application/json' },
         })
         .then(res => res.json())
-        .then(res => dispatch(userLoginSuc(res, history)));
+        .then(res => dispatch(userLoginSuc(res)));
     }
 }
 // 设置用户登出
