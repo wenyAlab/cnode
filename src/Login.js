@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Spin, Button, Input, Form, Icon, Row, Col, Card, Avatar } from 'antd';
+import { Layout, Button, Input, Form, Icon, Row, Col, Card } from 'antd';
 const fetch = require('node-fetch');
 
 const { Content } = Layout;
@@ -28,7 +28,7 @@ const formItemLayout = {
     },
   };
 
-class ListComponent extends Component{
+class Login extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -38,8 +38,25 @@ class ListComponent extends Component{
     }
     componentWillUnmount() {
     }
-    
+    onRedirect = (success) => {
+        if (success) {
+            this.props.history.push('/')
+        } else {
+            alert('fail login')
+        }
+    }
+    submit = () => {
+        const accesstoken = '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7';
+        fetch(`/accesstoken`, {
+            method: 'post',
+            body: JSON.stringify({accesstoken: accesstoken}),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then(res => res.json())
+        .then(res => this.onRedirect(res.success));
+    }
     render() {
+        console.log(this.props)
         const { form } = this.props;
         const { getFieldDecorator } = form;
         return (
@@ -52,7 +69,7 @@ class ListComponent extends Component{
                             <FormItem label="用户名" {...formItemLayout}>
                             {getFieldDecorator('userName', {
                                 rules: [{ required: true, message: 'Please input your username!' }],
-                            })(
+                            })(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
                                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
                             )}
                             </FormItem>
@@ -64,7 +81,7 @@ class ListComponent extends Component{
                             )}
                             </FormItem>
                             <FormItem {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit" className="login-form-button" style={{marginRight: '10px'}}>
+                                <Button type="primary" htmlType="submit" className="login-form-button" style={{marginRight: '10px'}} onClick={this.submit}>
                                     登录
                                 </Button>
                                  <Button type="primary" htmlType="submit" className="login-form-button">
@@ -92,10 +109,9 @@ class ListComponent extends Component{
                             </div>
                         </Col>
                     </Row>
-
                 </Content></Layout>
         )
     }
 }
 
-export default Form.create()(ListComponent)
+export default Form.create()(Login)

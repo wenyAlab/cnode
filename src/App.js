@@ -3,10 +3,10 @@ import { Layout, Menu, Row, Col, Card, Button, Tag, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import  ListComponent  from './components/List'
 import './App.css';
+import { connect } from 'react-redux';
+import { queryAllTab, clearList } from './actions/actions'
 import Ad from './images/ad.jpg';
-const fetch = require('node-fetch');
 const { Header, Content, Footer } = Layout;
-const Search = Input.Search;
 
 const cardHeader = {
   backgroundColor: "#f6f6f6",
@@ -17,16 +17,13 @@ class App extends Component {
     this.state = {
       userData: null,
       defaultKey: ['1'],
-      loading: true,
     }
   }
-  getList = (params)=>{
-    fetch(`/topics?tab=${params || ''}`)
-    .then(res => res.json())
-    .then(json => this.setState({userData: json.data, loading: false}));
-  }
   componentDidMount() {
-    this.getList('all');
+    this.props.fetchAllTab('all');
+  }
+  componentWillUnmount() {
+    this.props.clearList();
   }
   handleMenu = ({key}) =>{
     this.setState({
@@ -50,11 +47,11 @@ class App extends Component {
         break;
     }
 
-    this.getList(params);
-    // return params;
+    this.props.fetchAllTab(params);
   }
   render() {
-    const { userData, defaultKey, loading } = this.state;
+    const { defaultKey } = this.state;
+    const { loading, list } = this.props;
     return (
       <Layout className="layout">
         <Header>
@@ -70,22 +67,14 @@ class App extends Component {
             <Menu.Item key="2">精华</Menu.Item>
             <Menu.Item key="3">分享</Menu.Item>
             <Menu.Item key="4">问答</Menu.Item>
-            {/*
-              <Menu.Item key="1"><Link to='index/?tab=all'>全部</Link></Menu.Item>
-              <Menu.Item key="2"><Link to='index/?tab=good'>精华</Link></Menu.Item>
-              <Menu.Item key="3"><Link to='index/?tab=share'>分享</Link></Menu.Item>
-              <Menu.Item key="4"><Link to='index/?tab=ask'>问答</Link></Menu.Item>
-            */}
-
           </Menu>
-            {/* <Search style={{width: '10%'}}/> */}
           
         </Header>
         <Content style={{width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>
         <Row>
           <Col span={18}>
             <div style={{ background: '#fff', padding: 24, boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
-              <ListComponent loading={loading} data={userData && userData} pagination/>
+              <ListComponent loading={loading} data={list && list} pagination/>
             </div>
           </Col>
           <Col span={5} offset={1}>
@@ -117,4 +106,18 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  list: state.list,
+  loading: state.tabLoading,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchAllTab(params){
+    dispatch(queryAllTab(params))
+  },
+  clearList(){
+    dispatch(clearList())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -2,22 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.less';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk  from 'redux-thunk';
 import App from './App';
 import myReducer from './reducers/reducer';
+import createBrowserHistory from "history/createBrowserHistory";
+
 import Detail from './Detail';
 import Login from './Login';
 import UserPage from './UserPage';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router , Route } from 'react-router-dom';
 
-// const store = createStore(myReducer);
-// const init = store.getState();
-// console.log(init);
+// redux devtool
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+    myReducer,
+    composeEnhancers(applyMiddleware(thunk)),
+);
+const history = createBrowserHistory();
+
 ReactDOM.render(
     (
-        // <Provider store={store}>
-            <Router>
+        <Provider store={store}>
+            <Router history={history}>
                 <div>
                     <Route path="/" exact component={App}/>
                     <Route path="/detail/:id" component={Detail}/>
@@ -25,7 +33,7 @@ ReactDOM.render(
                     <Route path="/user/:loginname" component={UserPage}/>
                 </div>
             </Router>
-        // </Provider>
+        </Provider>
     ),
     document.getElementById('root'));
 
