@@ -78,3 +78,19 @@ export const userLogoutSuc = () => {
         // payload: [],
     }
 }
+ 
+// accesstoken String 用户的 accessToken
+// title String 标题
+// tab String 目前有 ask share job dev。开发新客户端的同学，请务必将你们的测试帖发在 dev 专区，以免污染日常的版面，否则会进行封号一周处理。
+// content String 主体内容
+
+// 新建主题
+export function createTopics(payload) {
+    return (dispatch) => {
+        fetch('/topics', {
+            method: 'post',
+            body: JSON.stringify(payload),
+            headers: { 'Content-Type': 'application/json'},
+        })
+    }
+}

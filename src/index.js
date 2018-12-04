@@ -11,6 +11,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import Detail from './Detail';
 import Login from './Login';
 import UserPage from './UserPage';
+import Create from './Create';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router , Route } from 'react-router-dom';
 
@@ -31,6 +32,7 @@ ReactDOM.render(
                     <Route path="/detail/:id" component={Detail}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/user/:loginname" component={UserPage}/>
+                    <Route path="/create" component={Create}/>
                 </div>
             </Router>
         </Provider>

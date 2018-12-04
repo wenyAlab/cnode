@@ -70,7 +70,8 @@ class Login extends Component{
         // }
     }
     render() {
-        const { form } = this.props;
+        const { form, authLogin } = this.props;
+        console.log(authLogin)
         const { getFieldDecorator } = form;
         return (
             <Layout>
