@@ -1,4 +1,4 @@
-
+import { message } from 'antd';
 const fetch = require('node-fetch');
 export const QUERY_ALL = 'QUERY_ALL';
 export const QUERY_DETAIL = 'QUERY_DETAIL';
@@ -6,6 +6,8 @@ export const CLEAR_DETAIL = 'CLEAR_DETAIL';
 export const CLEAR_LIST = 'CLEAR_LIST';
 export const LOGIN_SUC = 'LOGIN_SUC';
 export const LOG_OUT = 'LOG_OUT';
+export const SAVE_TOPICS = 'SAVE_TOPICS';
+export const CANCEL_SAVE = 'CANCEL_SAVE';
 
 // 获取首页列表
 export const queryAll =  (payload) => {
@@ -85,12 +87,54 @@ export const userLogoutSuc = () => {
 // content String 主体内容
 
 // 新建主题
-export function createTopics(payload) {
+export function createTopics(payload, history) {
     return (dispatch) => {
         fetch('/topics', {
             method: 'post',
             body: JSON.stringify(payload),
             headers: { 'Content-Type': 'application/json'},
+        }).then(res => res.json())
+        .then(res =>  {
+            if (res.success) {
+                message.success('创建成功');
+                history.push('/')
+            } else {
+                message.error('创建失败');
+            }
         })
     }
 }
+// 收藏主题
+export function saveTopics(payload) {
+    return (dispatch) => {
+        fetch('/topic_collect/collect', {
+            method: 'post',
+            body: JSON.stringify(payload),
+            header: {'Content-Type': 'application/json'},
+        }).then(res => res.json())
+        .then(res => dispatch(saveTopicsSuc()))
+    }
+}
+
+export const saveTopicsSuc = () => {
+    return {
+        type: SAVE_TOPICS,
+    }
+}
+
+// 取消收藏主题
+ export function cancelSaveTopics (params) {
+    return(dispatch) => {
+        fetch('/topic_collect/de_collect', {
+            method: 'post',
+            body: JSON.stringify(params),
+            header: {"Content-Type": 'application/json'},
+        }).then(res => res.json())
+        .then(res => dispatch(cancelSuc()))
+    }
+ }
+ export const cancelSuc = () => {
+     return {
+         type: CANCEL_SAVE,
+     }
+ }

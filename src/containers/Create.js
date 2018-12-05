@@ -41,14 +41,7 @@ class Detail extends Component{
             tab: 'dev',
             content: this.simplemde.value(),
         }
-        this.props.fetchCreateDispatch(payload).then(res => {
-            if (res.success) {
-                message.success('创建成功');
-                this.props.history.push('/')
-            } else {
-                message.error('创建失败');
-            }
-        });
+        this.props.fetchCreateDispatch(payload, this.props.history);
     }
     titleChange = (e) => {
         this.setState({
@@ -85,8 +78,8 @@ class Detail extends Component{
 const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = dispatch => ({
-    fetchCreateDispatch(payload) {
-        dispatch(createTopics(payload))
+    fetchCreateDispatch(payload, history) {
+        dispatch(createTopics(payload, history))
     },
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MarkDown from  'react-markdown';
 import AuthorSide from './AuthorSide';
 import { connect } from 'react-redux';
-import { queryDetailById, clearDetail} from '../actions/actions';
+import { queryDetailById, clearDetail, saveTopics, cancelSaveTopics} from '../actions/actions';
 
 const { Content } = Layout;
 
@@ -28,9 +28,21 @@ class Detail extends Component{
     componentWillUnmount() {
         this.props.clearDetail();
     }
+    saveTopics = () => {
+        const { detail, saved } = this.props;
+        const { id } = detail;
+        const params = {
+            accesstoken : '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7',
+            topic_id: id,
+        }
+        if (!saved) {
+            this.props.saveTopicsDispatch(params);
+        } else {
+            this.props.cancelSaveDispatch(params);
+        }
+    }
     render() {
-      const { detail, loading} = this.props;
-      console.log(loading)
+      const { detail, loading, saved} = this.props;
         return (
             !loading  ?
             <Layout>
@@ -43,7 +55,14 @@ class Detail extends Component{
                                 作者：<Tag >{detail && detail.author.loginname}</Tag> |
                                 发布时间：<Tag >{detail && detail.create_at} </Tag> |
                                 浏览次数：<Tag> {detail && detail.visit_count}</Tag> |
-                                来自：<Tag  > {detail && detail.tab}</Tag>
+                                来自：<Tag > {detail && detail.tab}</Tag>
+                                <Tag 
+                                    onClick={this.saveTopics} 
+                                    color={saved ? '#ccc' : '#87d068'}
+                                    style={{marginLeft: '300px', height: '30px', minWidth: '52px', lineHeight: '30px', textAlign: 'center', fontSize: '14px'}}
+                                >
+                                 {saved ? '取消收藏' : '收藏'}
+                                </Tag>
                             </div>
                             <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
                                 <MarkDown source={detail && detail.content} renderers={{image: Image}} />
@@ -88,6 +107,7 @@ class Detail extends Component{
 const mapStateToProps = (state) => ({
     detail: state.detail,
     loading: state.detailLoading,
+    saved: state.saved,
 })
 const mapDispatchToProps = dispatch => ({
     fetchDetailDispatch(params) {
@@ -95,6 +115,12 @@ const mapDispatchToProps = dispatch => ({
     },
     clearDetail(){
         dispatch(clearDetail())
+    },
+    saveTopicsDispatch(params) {
+        dispatch(saveTopics(params))
+    },
+    cancelSaveDispatch(params) {
+        dispatch(cancelSaveTopics(params))
     }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);
