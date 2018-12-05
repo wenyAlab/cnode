@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Layout, Spin, Tag, List, Avatar, Icon, Row, Col, Card } from 'antd';
+import { Spin, List, Avatar, Card } from 'antd';
 import { Link } from 'react-router-dom';
 const fetch = require('node-fetch');
-
-const { Content } = Layout;
 
 const cardStyle = {
     marginBottom: '20px',
@@ -57,7 +55,6 @@ export default class ListComponent extends Component{
                                 >
                                 <List.Item.Meta
                                     title={item.title}
-                                    // style={{overflow: 'hidden', textOverflow:'ellipsis',whiteSpace: 'nowrap'}}
                                 />
                                 </List.Item>
                             </Link>

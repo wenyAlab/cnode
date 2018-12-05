@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Layout, Spin, Tag, List, Avatar, Icon, Row, Col, Card } from 'antd';
+import { Layout, Spin, Avatar, Icon, Row, Col, Card } from 'antd';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
-import ListComponent from  './components/List';
+import ListComponent from  '../components/List';
 import AuthorSide from './AuthorSide';
 const fetch = require('node-fetch');
 

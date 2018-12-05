@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Button, Input, Form, Icon, Row, Col, Card } from 'antd';
-import { userLogin } from './actions/actions'
-const fetch = require('node-fetch');
+import { userLogin } from '../actions/actions'
 
 const { Content } = Layout;
 const FormItem = Form.Item;

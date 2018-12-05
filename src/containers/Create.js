@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Layout, Button, Input, Row, Col, Card, message } from 'antd';
 import SimpleMDE from 'simplemde';
-import CreateSide from './components/CreateSide';
-import { createTopics } from './actions/actions'
+import CreateSide from '../components/CreateSide';
+import { createTopics } from '../actions/actions'
 import { connect } from 'react-redux';
 
 const { Content } = Layout;

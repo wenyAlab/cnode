@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Layout, Spin, Tag, List, Avatar, Icon, Row, Col, Card } from 'antd';
+import { Layout, Spin, Tag, List, Avatar, Icon, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import MarkDown from  'react-markdown';
 import AuthorSide from './AuthorSide';
 import { connect } from 'react-redux';
-import { queryDetailById, clearDetail} from './actions/actions';
-const fetch = require('node-fetch');
+import { queryDetailById, clearDetail} from '../actions/actions';
 
 const { Content } = Layout;
+
+const Image = (props) => {
+    return <img {...props} style={{maxWidth: '100%'}} alt="img" />
+}
 
 class Detail extends Component{
     constructor(props) {
@@ -20,7 +23,6 @@ class Detail extends Component{
     componentDidMount() {
         const { match: {params} } = this.props;
         const { id } = params;
-        // this.getDetail(id);
         this.props.fetchDetailDispatch(id);
     }
     componentWillUnmount() {
@@ -44,7 +46,7 @@ class Detail extends Component{
                                 来自：<Tag  > {detail && detail.tab}</Tag>
                             </div>
                             <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
-                                <MarkDown source={detail && detail.content} />
+                                <MarkDown source={detail && detail.content} renderers={{image: Image}} />
                             </div>
                             <p style={{ margin: '16px 0', padding: '20px 24px', backgroundColor: '#f4fcf0' }}>
                                 {`${detail && detail.replies.length} 回复`}
