@@ -3,6 +3,7 @@ import { Layout, Spin, Tag, List, Avatar, Icon, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import MarkDown from  'react-markdown';
 import AuthorSide from './AuthorSide';
+import Command from './Command';
 import { connect } from 'react-redux';
 import { queryDetailById, clearDetail, saveTopics, cancelSaveTopics} from '../actions/actions';
 
@@ -31,15 +32,26 @@ class Detail extends Component{
     saveTopics = () => {
         const { detail, saved } = this.props;
         const { id } = detail;
-        const params = {
-            accesstoken : '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7',
+        const payload = {
+            accesstoken: '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7',
             topic_id: id,
         }
         if (!saved) {
-            this.props.saveTopicsDispatch(params);
+            this.props.saveTopicsDispatch(payload);
         } else {
-            this.props.cancelSaveDispatch(params);
+            this.props.cancelSaveDispatch(payload);
         }
+    }
+    edit = () => {
+        const { detail } = this.props;
+        this.props.history.push({pathname: '/create', state: {
+            title: detail && detail.title,
+            content: detail && detail.content,
+            id: detail && detail.id,
+        }})
+    }
+    delete = () => {
+        alert('delete')
     }
     render() {
       const { detail, loading, saved} = this.props;
@@ -51,18 +63,24 @@ class Detail extends Component{
                         <Col span={18}>
                         <div style={{ background: '#fff', padding: 24, boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
                             <h2 style={{ padding: 24, fontWeight:'bold', boxSizing: 'border-box', margin: '0 auto' }}>{detail && detail.top ? <Tag color="#87d068">置顶</Tag> : null}{detail && detail.title}</h2>
-                            <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
-                                作者：<Tag >{detail && detail.author.loginname}</Tag> |
-                                发布时间：<Tag >{detail && detail.create_at} </Tag> |
-                                浏览次数：<Tag> {detail && detail.visit_count}</Tag> |
-                                来自：<Tag > {detail && detail.tab}</Tag>
+                            <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto', display: 'flex', }}>
+                                作者：<Tag style={{flex: 1}} >{detail && detail.author.loginname}</Tag> |
+                                发布时间：<Tag style={{flex: 1}} >{detail && detail.create_at} </Tag> |
+                                浏览次数：<Tag style={{flex: 1}}> {detail && detail.visit_count}</Tag> |
+                                来自：<Tag style={{flex: 1}} > {detail && detail.tab}</Tag>
                                 <Tag 
                                     onClick={this.saveTopics} 
                                     color={saved ? '#ccc' : '#87d068'}
-                                    style={{marginLeft: '300px', height: '30px', minWidth: '52px', lineHeight: '30px', textAlign: 'center', fontSize: '14px'}}
+                                    style={{marginLeft: '300px', flex: 1, height: '30px', minWidth: '52px', lineHeight: '30px', textAlign: 'center', fontSize: '14px'}}
                                 >
                                  {saved ? '取消收藏' : '收藏'}
                                 </Tag>
+                            </div>
+                            <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
+                                {
+                                    detail.author_id === '5bfcea46be1b120abac5d4b9' &&
+                                    <React.Fragment><Icon type="form" style={{marginRight: '16px'}} onClick={this.edit} /><Icon type="delete" onClick={this.delete} /></React.Fragment>
+                                }
                             </div>
                             <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
                                 <MarkDown source={detail && detail.content} renderers={{image: Image}} />
@@ -90,6 +108,10 @@ class Detail extends Component{
                                 </Link>
                                 )}
                             />
+                            {/*
+                                <ReplyList detail={detail} loading={loading}/>
+                            */}
+                            <Command detail={detail}/>
                         </div>
                         </Col>
                         <Col span={5} offset={1}>
@@ -116,11 +138,11 @@ const mapDispatchToProps = dispatch => ({
     clearDetail(){
         dispatch(clearDetail())
     },
-    saveTopicsDispatch(params) {
-        dispatch(saveTopics(params))
+    saveTopicsDispatch(payload) {
+        dispatch(saveTopics(payload))
     },
-    cancelSaveDispatch(params) {
-        dispatch(cancelSaveTopics(params))
+    cancelSaveDispatch(payload) {
+        dispatch(cancelSaveTopics(payload))
     }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, Button, Input, Row, Col, Card, message } from 'antd';
 import SimpleMDE from 'simplemde';
 import CreateSide from '../components/CreateSide';
-import { createTopics } from '../actions/actions'
+import { createTopics, editTopics } from '../actions/actions'
 import { connect } from 'react-redux';
 
 const { Content } = Layout;
@@ -35,13 +35,21 @@ class Detail extends Component{
     componentWillUnmount() {
     }
     create = () => {
+        const { location } = this.props;
         const payload = {
             accesstoken: '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7',
             title: this.state.title,
             tab: 'dev',
             content: this.simplemde.value(),
         }
-        this.props.fetchCreateDispatch(payload, this.props.history);
+        if (!location.state) {
+            // 新建主题
+            this.props.fetchCreateDispatch(payload, this.props.history);
+        } else {
+             // 编辑状态下
+            payload.topic_id = location.state.id
+            this.props.fetchEditDispatch(payload, this.props.history)
+        }
     }
     titleChange = (e) => {
         this.setState({
@@ -49,16 +57,17 @@ class Detail extends Component{
         })
     }
     render() {
+        const { location } = this.props;
         return (
             <Layout>
                 <Content style={{ width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>
                     <Row>
                         <Col span={18}>
-                        <Card title="主页/ 发布话题" style={cardStyle} headStyle={cardHeader}>
+                        <Card title="主页/发布话题" style={cardStyle} headStyle={cardHeader}>
                             <p>发布模块：客户端测试</p>
-                            <Input placeholder="标题字数10字以上" onChange={this.titleChange} />
+                            <Input placeholder="标题字数10字以上" defaultValue={location.state && location.state.title} onChange={this.titleChange} />
                             <div style={{marginTop:'20px'}}>
-                                <textarea id="markdown-editor"></textarea>
+                                <textarea id="markdown-editor" defaultValue={location.state && location.state.content}></textarea>
                             </div>
                             <Button type="primary" onClick={this.create}>发布</Button>
                         </Card>
@@ -81,5 +90,8 @@ const mapDispatchToProps = dispatch => ({
     fetchCreateDispatch(payload, history) {
         dispatch(createTopics(payload, history))
     },
+    fetchEditDispatch(payload, history) {
+        dispatch(editTopics(payload, history))
+    }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

@@ -138,3 +138,40 @@ export const saveTopicsSuc = () => {
          type: CANCEL_SAVE,
      }
  }
+
+ // 编辑主题
+ export function editTopics(params, history) {
+     return(dispatch) => {
+         fetch('/topics/update', {
+             method:'post',
+             body: JSON.stringify(params),
+             header: {'Content-Type': 'application/json'},
+         }).then(res => res.json())
+         .then(res =>  {
+            if (res.success) {
+                message.success('编辑成功');
+                history.push('/')
+            } else {
+                message.error('编辑失败');
+            }
+        })
+     }
+ }
+ // 评论主题
+ export function commandTopics(payload, history) {
+     return(dispatch) => {
+         fetch(`/topic/${payload.topic_id}/replies`, {
+             method: 'post',
+             body: JSON.stringify(payload),
+             header: {"Content-Type": 'application/json'},
+         }).then(res => res.json())
+         .then(res =>  {
+            if (res.success) {
+                message.success('评论成功');
+                history.push(`/detail/${payload.topic_id}`)
+            } else {
+                message.error('评论失败');
+            }
+        })
+     }
+ }
