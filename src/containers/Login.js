@@ -39,34 +39,8 @@ class Login extends Component{
     }
     componentWillUnmount() {
     }
-    // onRedirect = (success) => {
-    //     if (success) {
-    //         this.props.history.push('/')
-    //     } else {
-    //         alert('fail login')
-    //     }
-    // }
     submit = () => {
-        // if (success) {
-        //     this.props.history.push('/')
-        // } else {
-        //     alert('fail login')
-        // }
-        // const accesstoken = '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7';
-        // fetch(`/accesstoken`, {
-        //     method: 'post',
-        //     body: JSON.stringify({accesstoken: accesstoken}),
-        //     headers: { 'Content-Type': 'application/json' },
-        // })
-        // .then(res => res.json())
-        // .then(res => this.onRedirect(res.success));
-        this.props.loginSuc();
-        this.props.history.push('/')
-        // if (this.props.authLogin) {
-        //     this.props.history.push('/')
-        // } else {
-        //     alert('fail login')
-        // }
+        this.props.loginSuc(this.props.history);
     }
     render() {
         const { form, authLogin } = this.props;
@@ -81,6 +55,7 @@ class Login extends Component{
                         <Form onSubmit={this.handleSubmit} className="login-form">
                             <FormItem label="用户名" {...formItemLayout}>
                             {getFieldDecorator('userName', {
+                                initialValue: 'test',
                                 rules: [{ required: true, message: 'Please input your username!' }],
                             })(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
                                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
@@ -88,6 +63,7 @@ class Login extends Component{
                             </FormItem>
                             <FormItem label="密码" {...formItemLayout}>
                             {getFieldDecorator('password', {
+                                initialValue: '123456',
                                 rules: [{ required: true, message: 'Please input your Password!' }],
                             })(
                                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
@@ -132,8 +108,8 @@ const mapStateToProps = (state) => ({
     authLogin: state.authLogin,
 })
 const mapDispatchToProps = dispatch => ({
-    loginSuc() {
-        dispatch(userLogin());
+    loginSuc(history) {
+        dispatch(userLogin(history));
     }
 })
 

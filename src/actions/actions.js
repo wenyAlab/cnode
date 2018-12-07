@@ -61,7 +61,7 @@ export const userLoginSuc = (payload) => {
         payload,
     }
 }
-export function userLogin () {
+export function userLogin (history) {
     return (dispatch) => {
         const accesstoken = '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7';
         fetch(`/accesstoken`, {
@@ -70,7 +70,15 @@ export function userLogin () {
             headers: { 'Content-Type': 'application/json' },
         })
         .then(res => res.json())
-        .then(res => dispatch(userLoginSuc(res)));
+        .then(res => {
+            dispatch(userLoginSuc(res))
+            if (res.success) {
+                message.success('登录成功');
+                history.push('/')
+            } else {
+                message.error('登录失败')
+            }
+        });
     }
 }
 // 设置用户登出

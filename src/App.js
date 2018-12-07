@@ -58,9 +58,14 @@ class App extends Component {
     return (
       <Layout className="layout">
         <Header>
-          <div className="logo" />
+          
+          <div className="logo">
+            <img style={{width: '120px', height: '28px'}} src="https://static2.cnodejs.org/public/images/cnodejs_light.svg" alt="logo"/>
+          </div>
+          
           <Menu
             theme="dark"
+            className="node_header"
             mode="horizontal"
             defaultSelectedKeys={defaultKey}
             style={{ lineHeight: '64px' }}
