@@ -8,6 +8,7 @@ export const LOGIN_SUC = 'LOGIN_SUC';
 export const LOG_OUT = 'LOG_OUT';
 export const SAVE_TOPICS = 'SAVE_TOPICS';
 export const CANCEL_SAVE = 'CANCEL_SAVE';
+export const IS_LIKE = 'IS_LIKE';
 
 // 获取首页列表
 export const queryAll =  (payload) => {
@@ -120,7 +121,14 @@ export function saveTopics(payload) {
             body: JSON.stringify(payload),
             header: {'Content-Type': 'application/json'},
         }).then(res => res.json())
-        .then(res => dispatch(saveTopicsSuc()))
+        .then(res => {
+            dispatch(saveTopicsSuc())
+            if (res.success) {
+                dispatch(saveTopicsSuc())
+            } else {
+                message.error('收藏失败');
+            }
+        })
     }
 }
 
@@ -183,3 +191,26 @@ export const saveTopicsSuc = () => {
         })
      }
  }
+
+ // 评论点赞
+ export function likeCommand(payload, history) {
+     return(dispatch) => {
+        fetch(`/reply/${payload.reply_id}/ups`, {
+            method: 'post',
+            body: JSON.stringify(payload),
+            header: {"Content-Type": 'application/json'}
+        }).then(res => res.json())
+        .then(res => {
+            if (res.success) {
+                dispatch(queryLike())
+            } else {
+                message.error('点赞失败')
+            }
+        })
+     }
+ }
+export const queryLike = () => {
+    return {
+        type: IS_LIKE,
+    }
+}

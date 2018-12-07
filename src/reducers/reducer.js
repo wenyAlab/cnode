@@ -1,5 +1,5 @@
 import { QUERY_ALL, QUERY_DETAIL, CLEAR_DETAIL,
-    CLEAR_LIST, LOGIN_SUC, LOG_OUT, SAVE_TOPICS, CANCEL_SAVE} from '../actions/actions';
+    CLEAR_LIST, LOGIN_SUC, LOG_OUT, SAVE_TOPICS, CANCEL_SAVE, IS_LIKE} from '../actions/actions';
 const initState = {
     list: [],
     authLogin: false,
@@ -8,6 +8,7 @@ const initState = {
     detailLoading: true,
     detail: {},
     saved: false,
+    liked: false,
 };
 
 function myReducer(state = initState, action) {
@@ -56,6 +57,11 @@ function myReducer(state = initState, action) {
             return {
                 ...state,
                 saved: false,
+            }
+        case IS_LIKE:
+            return {
+                ...state,
+                liked: true,
             }
         default:
             return state;

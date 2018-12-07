@@ -5,7 +5,7 @@ import MarkDown from  'react-markdown';
 import AuthorSide from './AuthorSide';
 import Command from './Command';
 import { connect } from 'react-redux';
-import { queryDetailById, clearDetail, saveTopics, cancelSaveTopics} from '../actions/actions';
+import { queryDetailById, clearDetail, saveTopics, cancelSaveTopics, likeCommand} from '../actions/actions';
 
 const { Content } = Layout;
 
@@ -53,8 +53,14 @@ class Detail extends Component{
     delete = () => {
         alert('delete')
     }
+    like =() => {
+        const payload = {
+            accesstoken: '90fabfa0-692c-40ad-bb3b-83b44c9cf4d7',
+        }
+        this.props.likeCommandFn(payload);
+    }
     render() {
-      const { detail, loading, saved} = this.props;
+      const { detail, loading, saved, liked} = this.props;
         return (
             !loading  ?
             <Layout>
@@ -71,17 +77,17 @@ class Detail extends Component{
                                 <Tag 
                                     onClick={this.saveTopics} 
                                     color={saved ? '#ccc' : '#87d068'}
-                                    style={{marginLeft: '300px', flex: 1, height: '30px', minWidth: '52px', lineHeight: '30px', textAlign: 'center', fontSize: '14px'}}
+                                    style={{marginLeft: '300px', flex: 1, height: '30px', lineHeight: '30px', textAlign: 'center', fontSize: '14px'}}
                                 >
                                  {saved ? '取消收藏' : '收藏'}
                                 </Tag>
                             </div>
-                            <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
-                                {
-                                    detail.author_id === '5bfcea46be1b120abac5d4b9' &&
-                                    <React.Fragment><Icon type="form" style={{marginRight: '16px'}} onClick={this.edit} /><Icon type="delete" onClick={this.delete} /></React.Fragment>
-                                }
-                            </div>
+                            {
+                                detail.author_id === '5bfcea46be1b120abac5d4b9' &&
+                                <div style={{ padding: '0px 24px' }}>
+                                <Icon type="form" style={{marginRight: '16px'}} onClick={this.edit} /><Icon type="delete" onClick={this.delete} />
+                                </div>
+                            }
                             <div style={{ padding: 24, boxSizing: 'border-box', margin: '0 auto' }}>
                                 <MarkDown source={detail && detail.content} renderers={{image: Image}} />
                             </div>
@@ -103,7 +109,7 @@ class Detail extends Component{
                                         title={`${item.author.loginname}${item.create_at}`}
                                         description={item.content}
                                     />
-                                    <div><Icon type="like" />{item.ups.length}</div>
+                                    <div><Icon type='like' theme={!liked ? '' : 'filled'} onClick={this.like} />{item.ups.length}</div>
                                     </List.Item>
                                 </Link>
                                 )}
@@ -130,6 +136,7 @@ const mapStateToProps = (state) => ({
     detail: state.detail,
     loading: state.detailLoading,
     saved: state.saved,
+    liked: state.liked,
 })
 const mapDispatchToProps = dispatch => ({
     fetchDetailDispatch(params) {
@@ -143,6 +150,9 @@ const mapDispatchToProps = dispatch => ({
     },
     cancelSaveDispatch(payload) {
         dispatch(cancelSaveTopics(payload))
+    },
+    likeCommandFn(payload){
+        dispatch(likeCommand(payload))
     }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);
