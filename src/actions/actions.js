@@ -9,6 +9,7 @@ export const LOG_OUT = 'LOG_OUT';
 export const SAVE_TOPICS = 'SAVE_TOPICS';
 export const CANCEL_SAVE = 'CANCEL_SAVE';
 export const IS_LIKE = 'IS_LIKE';
+export const COLLECTION_TOPICS = 'COLLECTION_TOPICS';
 
 // 获取首页列表
 export const queryAll =  (payload) => {
@@ -122,7 +123,6 @@ export function saveTopics(payload) {
             header: {'Content-Type': 'application/json'},
         }).then(res => res.json())
         .then(res => {
-            dispatch(saveTopicsSuc())
             if (res.success) {
                 dispatch(saveTopicsSuc())
             } else {
@@ -146,7 +146,13 @@ export const saveTopicsSuc = () => {
             body: JSON.stringify(params),
             header: {"Content-Type": 'application/json'},
         }).then(res => res.json())
-        .then(res => dispatch(cancelSuc()))
+        .then(res => {
+            if (res.success) {
+                dispatch(cancelSuc())
+            } else {
+                message.error('操作失败');
+            }
+        })
     }
  }
  export const cancelSuc = () => {
@@ -212,5 +218,19 @@ export const saveTopicsSuc = () => {
 export const queryLike = () => {
     return {
         type: IS_LIKE,
+    }
+}
+
+// 获取用户收藏的话题
+export function collectionTopics(payload) {
+    return(dispatch) => {
+        fetch(`/topic_collect/${payload}`).then(res => res.json())
+        .then(json => dispatch(queryCollectionTopics(json.data)))
+    }
+}
+export const queryCollectionTopics = (payload) => {
+    return {
+        type: COLLECTION_TOPICS,
+        payload,
     }
 }

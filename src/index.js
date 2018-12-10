@@ -8,7 +8,7 @@ import App from './App';
 import myReducer from './reducers/reducer';
 import createBrowserHistory from "history/createBrowserHistory";
 
-import { Detail, Login, UserPage, Create } from './containers'
+import { Detail, Login, UserPage, Create, Collection } from './containers'
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router , Route } from 'react-router-dom';
 
@@ -30,6 +30,7 @@ ReactDOM.render(
                     <Route path="/login" component={Login}/>
                     <Route path="/user/:loginname" component={UserPage}/>
                     <Route path="/create" component={Create}/>
+                    <Route path="/collection" component={Collection}/>
                 </div>
             </Router>
         </Provider>

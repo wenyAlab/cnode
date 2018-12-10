@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Layout, Spin, Avatar, Icon, Row, Col, Card } from 'antd';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import ListComponent from  '../components/List';
 import AuthorSide from './AuthorSide';
-const fetch = require('node-fetch');
+import { collectionTopics } from '../actions/actions'
 
+import { connect } from 'react-redux';
+
+const fetch = require('node-fetch');
 const { Content } = Layout;
 const cardStyle = {
     marginBottom: '20px',
@@ -13,7 +17,7 @@ const cardHeader = {
     backgroundColor: "#f6f6f6",
 }
 
-export default class UserPage extends Component{
+class UserPage extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -25,6 +29,7 @@ export default class UserPage extends Component{
         const { match: {params} } = this.props;
         const { loginname } = params;
         this.getDetail(loginname);
+        this.props.collectionTopicsFn(loginname);
     }
     componentWillUnmount() {
         this.setState({
@@ -36,9 +41,10 @@ export default class UserPage extends Component{
         fetch(`/user/${params}`)
         .then(res => res.json())
         .then(res => this.setState({detailData: res.data, loading: false}));    
-      }
+    }
     render() {
-      const {loading, detailData} = this.state;
+      const {loading, detailData } = this.state;
+      const { collectionList } = this.props;
         return (
             !loading ?
             <Layout>
@@ -46,12 +52,21 @@ export default class UserPage extends Component{
                     <Row>
                         <Col span={18}>
                         <Card title="主页" style={cardStyle} headStyle={cardHeader}>
-                            <Avatar src={detailData.avatar_url} /> { detailData.loginname}
+                            <Avatar shape="square" src={detailData.avatar_url} />
+                                <span style={{marginLeft: '20px'}}>
+                                    { detailData.loginname}
+                                </span>
                             <div style={{marginTop: '20px'}}>
                                 <p>{`积分：${detailData.score}`}</p>
                             </div>
+                            {
+                                collectionList && collectionList.length > 0 &&
+                                <div style={{marginTop: '20px'}}>
+                                    <Link to="/collection"><p style={{color: '#778087'}}>{`${collectionList && collectionList.length}个话题收藏`}</p></Link>
+                                </div>
+                            }
                             <div>
-                                <p>{`注册时间：${moment(detailData.create_at).fromNow()}`}</p>
+                                <p>{`注册时间：${moment(detailData.create_at).locale('zh-cn').fromNow()}`}</p>
                             </div>
                             <div>
                                 <p><a href={`https://github.com/${detailData.githubUsername}`} target="_blank"><Icon type="github" /> { detailData.githubUsername}</a></p>
@@ -75,3 +90,13 @@ export default class UserPage extends Component{
         )
     }
 }
+const mapStateToProps = (state) => ({
+    collectionList: state.collectionList,
+})
+const mapDispatchToProps = (dispatch) => ({
+    collectionTopicsFn(params){
+        dispatch(collectionTopics(params))
+    },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage)

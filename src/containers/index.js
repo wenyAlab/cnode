@@ -4,6 +4,7 @@ import Detail from './Detail';
 import DetailSide from './DetailSide';
 import Login from './Login';
 import UserPage from './UserPage';
+import Collection from './Collection';
 
 export {
     AuthorSide,
@@ -12,4 +13,5 @@ export {
     DetailSide,
     Login,
     UserPage,
+    Collection
 }
