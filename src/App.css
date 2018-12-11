@@ -7,7 +7,7 @@
   display: flex;
 }
 .layout .ant-layout-header .logo {
-  flex: 1;
+  /* flex: 1; */
   text-align: right;
   margin-right: 100px;
   line-height: 60px;

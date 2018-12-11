@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Row, Col, Card, Button, Tag, Avatar } from 'antd';
+import { Layout, Input, Row, Col, Card, Button, Tag, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import  ListComponent  from './components/List'
 import './App.css';
@@ -19,41 +19,10 @@ class App extends Component {
       defaultKey: ['1'],
     }
   }
-  componentDidMount() {
-    this.props.fetchAllTab('all');
-  }
   componentWillUnmount() {
     this.props.clearList();
   }
-  handleMenu = ({key}) =>{
-    this.setState({
-      loading: true,
-    })
-    let params;
-    switch (key) {
-      case '1':
-        params = 'all';
-        break;
-      case '2':
-        params = 'good';
-        break;
-      case '3':
-        params = 'share';
-        break;
-      case '4':
-        params = 'ask';
-        break;
-      case '5':
-        params = 'dev';
-        break;
-      default:
-        break;
-    }
-
-    this.props.fetchAllTab(params);
-  }
   render() {
-    const { defaultKey } = this.state;
     const { loading, list, authLogin, userData } = this.props;
     return (
       <Layout className="layout">
@@ -62,21 +31,9 @@ class App extends Component {
           <div className="logo">
             <img style={{width: '120px', height: '28px'}} src="https://static2.cnodejs.org/public/images/cnodejs_light.svg" alt="logo"/>
           </div>
-          
-          <Menu
-            theme="dark"
-            className="node_header"
-            mode="horizontal"
-            defaultSelectedKeys={defaultKey}
-            style={{ lineHeight: '64px' }}
-            onClick={this.handleMenu}
-          >
-            <Menu.Item key="1">全部</Menu.Item>
-            <Menu.Item key="2">精华</Menu.Item>
-            <Menu.Item key="3">分享</Menu.Item>
-            <Menu.Item key="4">问答</Menu.Item>
-            <Menu.Item key="5">客户端测试</Menu.Item>
-          </Menu>
+          <div className="logo">
+            <Input style={{width: '230px', height: '26px', borderRadius: '26px', backgroundColor: '#888', border: 'none'}} />
+          </div>
           
         </Header>
         <Content style={{width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>

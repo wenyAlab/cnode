@@ -12,6 +12,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.layoutCard {
+  background-color: #000;
+}
 .layout .ant-layout-header {
   padding: 0 72px;
 }

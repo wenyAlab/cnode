@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Layout, Spin, Avatar, Icon, Row, Col, Card } from 'antd';
 import moment from 'moment';
+import 'moment/locale/zh-cn'
+
 import { Link } from 'react-router-dom';
 import ListComponent from  '../components/List';
 import AuthorSide from './AuthorSide';
@@ -51,7 +53,7 @@ class UserPage extends Component{
                 <Content style={{ width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>
                     <Row>
                         <Col span={18}>
-                        <Card title="主页" style={cardStyle} headStyle={cardHeader}>
+                        <Card title="主页" className="layoutCard" headStyle={cardHeader}>
                             <Avatar shape="square" src={detailData.avatar_url} />
                                 <span style={{marginLeft: '20px'}}>
                                     { detailData.loginname}

@@ -60,7 +60,7 @@ class Detail extends Component{
         this.props.likeCommandFn(payload);
     }
     render() {
-      const { detail, loading, saved, liked} = this.props;
+      const { detail, loading, saved, liked, authLogin} = this.props;
         return (
             !loading  ?
             <Layout>
@@ -117,7 +117,10 @@ class Detail extends Component{
                             {/*
                                 <ReplyList detail={detail} loading={loading}/>
                             */}
-                            <Command detail={detail}/>
+                            {
+                                authLogin &&
+                                <Command detail={detail}/>
+                            }
                         </div>
                         </Col>
                         <Col span={5} offset={1}>
@@ -137,6 +140,7 @@ const mapStateToProps = (state) => ({
     loading: state.detailLoading,
     saved: state.saved,
     liked: state.liked,
+    authLogin: state.authLogin,
 })
 const mapDispatchToProps = dispatch => ({
     fetchDetailDispatch(params) {
