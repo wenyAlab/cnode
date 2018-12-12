@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { Layout, Input, Row, Col, Card, Button, Tag, Avatar } from 'antd';
+import { Layout, Input, Row, Col, Card, Button, Tag, Avatar, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import  ListComponent  from './components/List'
 import './App.css';
 import { connect } from 'react-redux';
 import { queryAllTab, clearList, userLogoutSuc } from './actions/actions'
 import Ad from './images/ad.jpg';
+import { InnerHeader } from './containers';
 const { Header, Content, Footer } = Layout;
 
 const cardHeader = {
   backgroundColor: "#f6f6f6",
 }
+const Search = Input.Search;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,19 +29,34 @@ class App extends Component {
     return (
       <Layout className="layout">
         <Header>
-          
-          <div className="logo">
-            <img style={{width: '120px', height: '28px'}} src="https://static2.cnodejs.org/public/images/cnodejs_light.svg" alt="logo"/>
+          <div style={{width: '80%', margin: '0 auto', display:'flex'}}>
+            <span className="logo">
+              <img style={{width: '120px', height: '28px'}} src="https://static2.cnodejs.org/public/images/cnodejs_light.svg" alt="logo"/>
+            </span>
+            <span className="search">
+              <Search style={{width: '230px', height: '26px', borderRadius: '26px', backgroundColor: '#888', border: 'none'}} />
+            </span>
+            <Menu
+              mode="horizontal"
+              defaultSelectedKeys={this.props.defaultKey}
+              style={{ marginLeft: '100px', lineHeight: '64px', color: '#fff', backgroundColor: 'transparent', borderBottom: 'none' }}
+              onClick={this.handleMenu}
+            >
+              <Menu.Item key="1">首页</Menu.Item>
+              <Menu.Item key="2">未读消息</Menu.Item>
+              <Menu.Item key="3">新手入门</Menu.Item>
+              <Menu.Item key="4">API</Menu.Item>
+              <Menu.Item key="5">关于</Menu.Item>
+              <Menu.Item key="6">设置</Menu.Item>
+              <Menu.Item key="7">退出</Menu.Item>
+            </Menu>
           </div>
-          <div className="logo">
-            <Input style={{width: '230px', height: '26px', borderRadius: '26px', backgroundColor: '#888', border: 'none'}} />
-          </div>
-          
         </Header>
         <Content style={{width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>
         <Row>
           <Col span={18}>
-            <div style={{ background: '#fff', padding: 24, boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
+            <InnerHeader defaultKey='1'/>
+            <div style={{ background: '#fff', padding: '0px 24px 24px 24px', boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
               <ListComponent loading={loading} data={list && list} pagination/>
             </div>
           </Col>

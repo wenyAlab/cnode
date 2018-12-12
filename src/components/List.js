@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { List, Avatar, Spin, Tag, Menu } from 'antd';
+import { List, Avatar, Spin, Tag } from 'antd';
 import moment from 'moment';
+import './list.css';
 import 'moment/locale/zh-cn'
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { queryAllTab } from '../actions/actions'
 
 
 const renderTab = (tab) => {
@@ -26,69 +25,17 @@ const renderTab = (tab) => {
   return tabText;
 }
 class ListComponent extends Component{
-    constructor(props) {
-      super(props);
-      this.state = {
-        defaultKey: ['1'],
-      }
-    }
-    componentDidMount() {
-      this.props.fetchAllTab('all');
-    }
-    handleMenu = ({key}) =>{
-      this.setState({
-        loading: true,
-      })
-      let params;
-      switch (key) {
-        case '1':
-          params = 'all';
-          break;
-        case '2':
-          params = 'good';
-          break;
-        case '3':
-          params = 'share';
-          break;
-        case '4':
-          params = 'ask';
-          break;
-        case '5':
-          params = 'dev';
-          break;
-        default:
-          break;
-      }
-  
-      this.props.fetchAllTab(params);
-    }
 
     render() {
-      const { defaultKey } = this.state;
-
       const { data, loading, pagination} = this.props;
         return (
           !loading ?
+          <React.Fragment>
             <List
             itemLayout="horizontal"
+            className="topics_list"
             dataSource={data}
             loading={loading}
-            header={
-              <div>
-                <Menu
-                  mode="horizontal"
-                  defaultSelectedKeys={defaultKey}
-                  style={{ height: '40px', lineHeight: '40px' }}
-                  onClick={this.handleMenu}
-                >
-                <Menu.Item key="1">全部</Menu.Item>
-                <Menu.Item key="2">精华</Menu.Item>
-                <Menu.Item key="3">分享</Menu.Item>
-                <Menu.Item key="4">问答</Menu.Item>
-                <Menu.Item key="5">客户端测试</Menu.Item>
-              </Menu>
-            </div>
-          }
             split
             locale={{
               emptyText: '暂无'
@@ -108,17 +55,9 @@ class ListComponent extends Component{
                 </List.Item>
               </Link>
             )}
-          /> : <Spin tip="Loading..."/>
+          /> </React.Fragment>: <Spin tip="Loading..."/>
         )
     }
 }
-const mapStateToProps = () => ({
 
-})
-const mapDispatchToProps = (dispatch) => ({
-  fetchAllTab(params){
-    dispatch(queryAllTab(params))
-  },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListComponent);
+export default ListComponent;

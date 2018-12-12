@@ -4,7 +4,6 @@
 }
 .layout .ant-layout-header {
   background-color: #444;
-  display: flex;
 }
 .layout .ant-layout-header .logo {
   /* flex: 1; */

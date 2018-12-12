@@ -1,0 +1,9 @@
+@import '~antd/dist/antd.css';
+
+.topics_list .ant-list-header {
+  border-bottom: none;
+  padding-top: 0px;
+}
+.topics_list .ant-list-header .ant-menu-light {
+  background-color: #f6f6f6;
+}
