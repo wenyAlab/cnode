@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/zh-cn'
 
 import { Link } from 'react-router-dom';
-import ListComponent from  '../components/List';
+import { List } from  '../components';
 import AuthorSide from './AuthorSide';
 import { collectionTopics } from '../actions/actions'
 
@@ -75,10 +75,10 @@ class UserPage extends Component{
                             </div>
                         </Card>
                         <Card title="最近创建的话题" style={cardStyle} headStyle={cardHeader}>
-                            <ListComponent loading={loading} data={detailData && detailData.recent_topics}/>
+                            <List loading={loading} data={detailData && detailData.recent_topics}/>
                         </Card>
                         <Card title="最近参与的话题" style={cardStyle} headStyle={cardHeader}>
-                            <ListComponent loading={loading} data={detailData && detailData.recent_replies}/>                            
+                            <List loading={loading} data={detailData && detailData.recent_replies}/>                            
                         </Card>
                         </Col>
                         <Col span={5} offset={1}>

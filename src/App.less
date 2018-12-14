@@ -2,12 +2,65 @@
 .App {
   text-align: center;
 }
-.layout .ant-layout-header {
-  background-color: #444;
-  .logo{
-    text-align: right;
-    margin-right: 100px;
-    line-height: 60px;
+.layout {
+  .ant-layout-header {
+    background-color: #444;
+    .cnode_header_wrap {
+      width: 80%;
+      margin: 0 auto;
+      display: flex;
+      .logo{
+        text-align: right;
+        margin-right: 40px;
+        line-height: 60px;
+        img {
+          width: 120px;
+          height: 28px;
+        }
+      }
+      .search{
+        .ant-input {
+          width: 230px;
+          height: 26px;
+          border-radius: 26px;
+          background-color: #888;
+          border: none;
+  
+        }
+      }
+      .ant-menu {
+        margin-left: 100px;
+        line-height: 64px;
+        color: #fff;
+        background-color: transparent;
+        border-bottom: none;
+      }
+    }
+  }
+  .ant-layout-content {
+    width: 90%;
+    max-width: 1400px;
+    min-width: 960px;
+    margin: 15px auto;
+    min-height: 400px;
+    .list_wrap {
+      background-color: #fff;
+      padding: 0 24px 24px 24px;
+      box-sizing: border-box;
+      min-height: 100vh;
+      margin: 0 auto;
+    }
+    .sider_wrap {
+      box-sizing: border-box;
+      min-height: 100vh;
+      margin: 0 auto;
+      .ant-avatar {
+        margin-right: 10px;
+      }
+      // span {
+      //   color: #778087;
+      // }
+    }
   }
 }
 .App-logo {

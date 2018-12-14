@@ -7,7 +7,7 @@ import thunk  from 'redux-thunk';
 import App from './App';
 import myReducer from './reducers/reducer';
 import createBrowserHistory from "history/createBrowserHistory";
-
+import Author from './containers/Author';
 import { Detail, Login, UserPage, Create, Collection } from './containers'
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router , Route } from 'react-router-dom';
@@ -26,11 +26,14 @@ ReactDOM.render(
             <Router history={history}>
                 <div>
                     <Route path="/" exact component={App}/>
-                    <Route path="/detail/:id" component={Detail}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/detail/:id" component={Detail}/>
                     <Route path="/user/:loginname" component={UserPage}/>
-                    <Route path="/create" component={Create}/>
-                    <Route path="/collection" component={Collection}/>
+                    {/*
+                        把需要进行拦截的路由（登录验证）写成Author组件来进行路由拦截
+                    */}
+                    <Author path="/create" component={Create}/>
+                    <Author path="/collection" component={Collection}/>
                 </div>
             </Router>
         </Provider>

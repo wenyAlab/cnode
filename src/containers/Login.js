@@ -43,8 +43,7 @@ class Login extends Component{
         this.props.loginSuc(this.props.history);
     }
     render() {
-        const { form, authLogin } = this.props;
-        console.log(authLogin)
+        const { form } = this.props;
         const { getFieldDecorator } = form;
         return (
             <Layout>
