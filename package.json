@@ -121,16 +121,6 @@
   "babel": {
     "presets": [
       "react-app"
-    ],
-    "plugins": [
-      [
-        "import",
-        {
-          "libraryName": "antd",
-          "libraryDirectory": "es",
-          "style": true
-        }
-      ]
     ]
   },
   "proxy": "https://cnodejs.org/api/v1 ",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List, Avatar, Spin, Tag } from 'antd';
 import moment from 'moment';
-import './list.css';
+import './list.less';
 import 'moment/locale/zh-cn'
 import { Link } from 'react-router-dom';
 

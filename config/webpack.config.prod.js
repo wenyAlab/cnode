@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -51,7 +51,7 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
-const cssRegex = /\.css$/;
+const cssRegex = /\.(css|less)$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -89,6 +89,12 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
           }),
         ],
         sourceMap: shouldUseSourceMap,
+      },
+    },
+    {
+      loader: 'less-loader',
+      options: {
+        javascriptEnabled: true,
       },
     },
   ];
@@ -305,6 +311,7 @@ module.exports = {
                     },
                   },
                 ],
+                ['import', [{ libraryName: "antd", style: true }]]
               ],
               cacheDirectory: true,
               // Save disk space when time isn't as important

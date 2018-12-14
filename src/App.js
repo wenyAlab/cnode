@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, Input, Row, Col, Card, Button, Tag, Avatar, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import  ListComponent  from './components/List'
-import './App.css';
+import './App.less';
 import { connect } from 'react-redux';
 import { queryAllTab, clearList, userLogoutSuc } from './actions/actions'
 import Ad from './images/ad.jpg';

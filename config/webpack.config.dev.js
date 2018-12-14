@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -32,8 +32,8 @@ const env = getClientEnvironment(publicUrl);
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
-// style files regexes
-const cssRegex = /\.css$/;
+// style files regexes 添加less
+const cssRegex = /\.(css|less)$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -64,6 +64,13 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
             stage: 3,
           }),
         ],
+      },
+    },
+    // 添加less-loader配置
+    {
+      loader: 'less-loader',
+      options: {
+        javascriptEnabled: true,
       },
     },
   ];
@@ -231,6 +238,8 @@ module.exports = {
                     },
                   },
                 ],
+                // 添加antd样式按需引入
+                ['import', { libraryName: "antd", style: true }]
               ],
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
