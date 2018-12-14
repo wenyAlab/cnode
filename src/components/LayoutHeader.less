@@ -6,12 +6,14 @@
     text-align: right;
     margin-right: 40px;
     line-height: 60px;
+    flex: 1;
     img {
       width: 120px;
       height: 28px;
     }
   }
   .search{
+    flex: 1;
     .ant-input {
       width: 230px;
       height: 26px;
@@ -22,10 +24,16 @@
     }
   }
   .ant-menu {
+    flex: 7;
     margin-left: 100px;
     line-height: 64px;
+    text-align: right;
     color: #fff;
     background-color: transparent;
     border-bottom: none;
+    .ant-menu-item, .ant-menu-item-selected {
+      border-bottom: none;
+      color: #ccc;
+    }
   }
 }
