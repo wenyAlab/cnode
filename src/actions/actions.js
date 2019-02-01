@@ -10,6 +10,7 @@ export const SAVE_TOPICS = 'SAVE_TOPICS';
 export const CANCEL_SAVE = 'CANCEL_SAVE';
 export const IS_LIKE = 'IS_LIKE';
 export const COLLECTION_TOPICS = 'COLLECTION_TOPICS';
+export const CHANGE_LOADING = 'CHAGE_LOADING';
 
 // 获取首页列表
 export const queryAll =  (payload) => {
@@ -18,6 +19,14 @@ export const queryAll =  (payload) => {
         payload,
     }
 }
+
+export const change_loading = (payload) => {
+    return {
+        type: CHANGE_LOADING,
+        payload: true,
+    }
+}
+
 export function queryAllTab(params) {
     return(dispatch) => {
         fetch(`/topics?tab=${params}`)

@@ -1,6 +1,6 @@
 import { QUERY_ALL, QUERY_DETAIL, CLEAR_DETAIL,
     CLEAR_LIST, LOGIN_SUC, LOG_OUT,
-    SAVE_TOPICS, CANCEL_SAVE, IS_LIKE, COLLECTION_TOPICS} from '../actions/actions';
+    SAVE_TOPICS, CANCEL_SAVE, IS_LIKE, COLLECTION_TOPICS, CHANGE_LOADING} from '../actions/actions';
 const initState = {
     list: [],
     authLogin: false,
@@ -71,6 +71,11 @@ function myReducer(state = initState, action) {
                 ...state,
                 collectionList: action.payload,
                 collectionLoading: false,
+            }
+        case CHANGE_LOADING:
+            return {
+                ...state,
+                tabLoading: action.payload,
             }
         default:
             return state;

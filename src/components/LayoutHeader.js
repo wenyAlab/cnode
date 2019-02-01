@@ -1,11 +1,36 @@
 import React from 'react';
+import {withRouter}  from 'react-router-dom'
 import { Layout, Menu, Input } from 'antd';
 import './LayoutHeader.less';
 
 const { Header } = Layout;
 
 class LayoutHeader extends React.Component {
+  handleMenu = ({key}) =>{
+    switch (key) {
+      case '1':
+        this.props.history.push('/');
+        break;
+      case '2':
+        this.props.history.push('/');
+        break;
+      case '3':
+        this.props.history.push('/');
+        break;
+      case '4':
+        this.props.history.push('/');
+        break;
+      case '5':
+        this.props.history.push('/');
+        break;
+      default:
+        break;
+    }
+
+  }
+
   render() {
+    console.log(this.props)
     return (
       <Header>
         <div className="cnode_header_wrap">
@@ -34,4 +59,4 @@ class LayoutHeader extends React.Component {
   }
 }
 
-export default LayoutHeader;
+export default withRouter(LayoutHeader);

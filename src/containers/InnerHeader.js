@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
-import { queryAllTab } from '../actions/actions'
+import { queryAllTab, change_loading } from '../actions/actions'
 import { connect} from 'react-redux';
 
 
@@ -16,9 +16,7 @@ class InnerHeader extends React.Component {
   }
 
   handleMenu = ({key}) =>{
-    this.setState({
-      loading: true,
-    })
+    this.props.changeLoading();
     let params;
     switch (key) {
       case '1':
@@ -67,6 +65,9 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTab(params){
     dispatch(queryAllTab(params))
+  },
+  changeLoading() {
+    dispatch(change_loading())
   }
 })
 
