@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Input, Row, Col, Card, Button, Tag, Avatar, Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { LayoutHeader, List } from './components'
+import { LayoutHeader, ListComponent } from './components'
 import './App.less';
 import { connect } from 'react-redux';
 import { queryAllTab, clearList, userLogoutSuc } from './actions/actions'
@@ -25,15 +25,19 @@ class App extends Component {
   }
   render() {
     const { loading, list, authLogin, userData } = this.props;
+    const pagination = {
+      // pageNumber: 40,
+      pageSize:40,
+    }
     return (
       <Layout className="layout">
         <LayoutHeader/>
         <Content>
         <Row>
           <Col span={18}>
-            <InnerHeader defaultKey='1'/>
+            <InnerHeader defaultKey={this.state.defaultKey}/>
             <div className="list_wrap">
-              <List loading={loading} data={list && list} pagination/>
+              <ListComponent loading={loading} data={list && list} pagination={pagination}/>
             </div>
           </Col>
           <Col span={5} offset={1}>
@@ -44,8 +48,8 @@ class App extends Component {
                   title="CNode：Node.js专业中文社区"
                   headStyle={cardHeader}
                 >
-                  <p>您可以 <Tag><Link to="/login">登录</Link></Tag>或 <Tag>注册</Tag> , 也可以</p>
-                  <Button type="primary">通过gitHub登录</Button>
+                  <div>您可以 <Tag><Link to="/login">登录</Link></Tag>或 <Tag>注册</Tag> , 也可以</div>
+                  <Button type="primary" style={{backgroundColor: '#5bc0de', border:'#5bc0de'}}>通过gitHub登录</Button>
                 </Card> :
                 <Card
                   title="个人信息"
@@ -74,15 +78,23 @@ class App extends Component {
             }
             <Card style={{width: '100%'}}>
               <div>
-                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src={Ad}/>
-                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src={Ad}/>
-                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src={Ad}/>
-                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src={Ad}/>
+                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src='https://static.cnodejs.org/Fv9R31Y6ySKKJi95ldk9TRkJ7o5O'/>
+                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src='https://static.cnodejs.org/Fssu56hfLTZbS0QWUrTq_Cj_tpmO'/>
+                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src='https://static.cnodejs.org/Fl_LDJY2VdTy0g060A8jm75dnufL'/>
+                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src='https://static.cnodejs.org/Fn4D6BhOTz1IswvmzeZ1q7QW1ls_'/>
+              </div>
+            </Card>
+            <Card style={{width: '100%'}} title="友情链接">
+              <div>
+                <img width="150px" style={{marginBottom: '8px'}} alt='链接1' src='https://static2.cnodejs.org/public/images/ruby-china-20150529.png'/>
+                <img width="150px" style={{marginBottom: '8px'}} alt='链接2' src='https://static2.cnodejs.org/public/images/golangtc-logo.png'/>
+                <img width="150px" style={{marginBottom: '8px'}} alt='链接3' src='https://static2.cnodejs.org/public/images/phphub-logo.png'/>
+                <img width="150px" style={{marginBottom: '8px'}} alt='链接4' src='https://static.cnodejs.org/FjLUc7IJ2--DqS706etPQ1EGajxK'/>
               </div>
             </Card>
             <Card style={{width: '100%'}} title="客户端二维码">
               <div>
-                <img width="100%" style={{marginBottom: '8px'}} alt='广告' src='https://static.cnodejs.org/FtG0YVgQ6iginiLpf9W4_ShjiLfU'/>
+                <img width="100%" style={{marginBottom: '8px'}} alt='二维码' src='https://static.cnodejs.org/FtG0YVgQ6iginiLpf9W4_ShjiLfU'/>
               </div>
             </Card>
             </div>
@@ -90,7 +102,7 @@ class App extends Component {
         </Row>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          cnode
+          CNode 社区为国内最专业的 Node.js 开源技术社区，致力于 Node.js 的技术研究。
         </Footer>
       </Layout>
     );
@@ -112,8 +124,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(clearList())
   },
   signOut(history){
-    dispatch(userLogoutSuc())
-    history.push('/')
+    dispatch(userLogoutSuc(history))
   }
 })
 

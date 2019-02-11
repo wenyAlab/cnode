@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Button, Input, Form, Icon, Row, Col, Card } from 'antd';
 import { userLogin } from '../actions/actions'
+import { LayoutHeader } from '../components';
 
 const { Content } = Layout;
 const FormItem = Form.Item;
@@ -47,6 +48,7 @@ class Login extends Component{
         const { getFieldDecorator } = form;
         return (
             <Layout>
+                <LayoutHeader/>
                 <Content style={{ width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>
                     <Row>
                         <Col span={18}>

@@ -10,7 +10,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import Author from './containers/Author';
 import { Detail, Login, UserPage, Create, Collection } from './containers'
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router , Route } from 'react-router-dom';
+import { Router , Route } from 'react-router-dom';
 
 // redux devtool
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

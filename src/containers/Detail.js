@@ -3,6 +3,8 @@ import { Layout, Spin, Tag, List, Avatar, Icon, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import MarkDown from  'react-markdown';
 import AuthorSide from './AuthorSide';
+import { LayoutHeader } from '../components'
+
 import Command from './Command';
 import { connect } from 'react-redux';
 import { queryDetailById, clearDetail, saveTopics, cancelSaveTopics, likeCommand} from '../actions/actions';
@@ -64,6 +66,7 @@ class Detail extends Component{
         return (
             !loading  ?
             <Layout>
+                <LayoutHeader/>
                 <Content style={{ width: '90%', maxWidth: '1400px', minWidth: '960px', margin: '15px auto', minHeight: '400px'}}>
                     <Row>
                         <Col span={18}>

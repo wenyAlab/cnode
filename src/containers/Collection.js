@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Row, Col, Card, Button, Tag, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
-import  { List }  from '../components'
+import  { ListComponent }  from '../components'
 // import './App.css';
 import { connect } from 'react-redux';
 import { userLogoutSuc } from '../actions/actions'
@@ -31,7 +31,7 @@ class App extends Component {
         <Row>
           <Col span={18}>
             <div style={{ background: '#fff', padding: 24, boxSizing: 'border-box', minHeight: '100vh', margin: '0 auto' }}>
-              <List loading={false} data={collectionList && collectionList} pagination/>
+              <ListComponent loading={false} data={collectionList && collectionList} pagination/>
             </div>
           </Col>
           <Col span={5} offset={1}>

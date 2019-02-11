@@ -36,7 +36,7 @@ class ListComponent extends Component{
             className="topics_list"
             dataSource={data}
             loading={loading}
-            split
+            split={true}
             locale={{
               emptyText: '暂无'
             }}

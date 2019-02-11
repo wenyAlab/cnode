@@ -70,6 +70,9 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     {
       loader: 'less-loader',
       options: {
+        modifyVars: {
+          'primary-color': '#80bd01',
+        },
         javascriptEnabled: true,
       },
     },
